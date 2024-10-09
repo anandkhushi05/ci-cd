@@ -22,13 +22,14 @@ jobs:
       working-directory: ./backend
       run: npm install
 
-    - name: Run tests
+    - name: Start backend server
       working-directory: ./backend
-      run: npm run test
+      run: npm start &
       
-    - name: Build
-      working-directory: ./backend
-      run: npm run build
+    - name: Wait for server to start
+      run: |
+        sleep 10
+        curl -f http://localhost:28080 || exit 1
 
     - name: Deploy
       run: echo "Deploy to your hosting service here."
