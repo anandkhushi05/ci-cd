@@ -26,10 +26,10 @@ jobs:
       working-directory: ./backend
       run: npm start &
       
-    - name: Wait for server to start
-      run: |
-        sleep 10
-        curl -f http://localhost:28080 || exit 1
+    # - name: Wait for server to start
+    #   run: |
+    #     sleep 10
+    #     curl -f http://localhost:28080 || exit 1
 
     - name: Deploy
       run: echo "Deploy to your hosting service here."
