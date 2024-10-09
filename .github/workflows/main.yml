@@ -25,6 +25,10 @@ jobs:
     - name: Start backend server
       working-directory: ./backend
       run: npm start &
+
+    - name: Build frontend
+      working-directory: ./frontend
+      run: npm run build
       
     # - name: Wait for server to start
     #   run: |
