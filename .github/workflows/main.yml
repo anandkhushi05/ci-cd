@@ -27,11 +27,11 @@ jobs:
       run: npm i
 
 
-    - name: Build 
     
-      run: npm run build
     - name: npm test
       run: npm run test
+    - name: Build 
+      run: npm run build
 
     - name: Deploy
       run: echo "Deploy to your hosting service here."
