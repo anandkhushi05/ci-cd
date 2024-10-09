@@ -4,15 +4,11 @@ on:
   push:
     branches:
       - main
-    
+
 jobs:
   build:
     runs-on: ubuntu-latest
-    defaults:
-        run:
-           shell: bash
-           working-directory: ./backend
-                      
+    
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
@@ -22,15 +18,16 @@ jobs:
       with:
         node-version: '18.x'
 
-    - name: Install  dependencies
-     
-      run: npm i
+    - name: Install backend dependencies
+      working-directory: ./backend
+      run: npm install
 
-
-    
-    - name: npm test
+    - name: Run tests
+      working-directory: ./backend
       run: npm run test
-    - name: Build 
+      
+    - name: Build
+      working-directory: ./backend
       run: npm run build
 
     - name: Deploy
