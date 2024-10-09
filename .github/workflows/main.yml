@@ -19,15 +19,15 @@ jobs:
         node-version: '16'
 
     - name: Install backend dependencies
-      working-directory: ./backend/**
+     
       run: npm install
 
     - name: Install frontend dependencies
-      working-directory: ./frontend/**
+     
       run: npm install
 
     - name: Build frontend
-      working-directory: ./frontend/**
+    
       run: npm run build
 
     - name: Deploy (Example Placeholder)
