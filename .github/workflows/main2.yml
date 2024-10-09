@@ -1,0 +1,59 @@
+name: Deploy Simple Project
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    services:
+      mongo:
+        image: mongo:latest
+        ports:
+          - 27017:27017
+        options: --health-cmd "mongo --eval 'db.runCommand({ ping: 1 })'" --health-interval 10s --health-timeout 5s --health-retries 5
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: List current directory
+      run: |
+        pwd
+        ls -R
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '16'
+
+    - name: Install backend dependencies
+      working-directory: ./backend
+      run: npm install
+
+    - name: Install frontend dependencies
+      working-directory: ./frontend
+      run: npm install
+
+    - name: Build frontend
+      working-directory: ./frontend
+      run: npm run build
+
+    - name: Start backend server
+      working-directory: ./backend
+      run: |
+        echo "MONGO_URI=mongodb://localhost:27017/mydatabase" >> .env
+        nohup npm start &
+
+    - name: Wait for backend
+      run: |
+        while ! curl -s http://localhost:28080; do
+          echo "Waiting for backend to be ready..."
+          sleep 5
+        done
+
+    - name: Deploy (Example Placeholder)
+      run: echo "Deploy to your hosting service here."
