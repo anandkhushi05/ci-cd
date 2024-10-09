@@ -4,11 +4,15 @@ on:
   push:
     branches:
       - main
-
+    
 jobs:
   build:
     runs-on: ubuntu-latest
-
+    defaults:
+        run:
+           shell: bash
+           working-directory: ./backend
+                      
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
@@ -20,7 +24,7 @@ jobs:
 
     - name: Install  dependencies
      
-      run: npm install
+      run: npm run install
 
 
     - name: Build 
